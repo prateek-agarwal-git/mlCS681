@@ -35,43 +35,53 @@ def filebenchFileGenerator(shadows, dbwriters, iosize, cycles,filename):
   f.close()
 print("first set va_space to 0. run echo0va_space.sh . exit from root mode.")
 os.system("sudo -s")
+print("switching off hyperthreading")
+os.system("sudo ./t.sh")
 cpu=["0.5","1","1.5","2"]
 memory=["128m", "256m", "512m", "1g"]
 nshadows=["10", "30", "50", "70"]
-ndbwriters= ["5", "10","20", "40"]
+ndbwriters= ["5", "10","15", "20"]
 iosizes=["2k", "16k","256k", "512k"]
 usermode=["100000","200000", "400000","800000"]  
 totalIterations = 4**6
 cpuindex = 0 
-
+#ndbwriters = 40 did not work
 #filebenchFileGenerator(nshadows[1], ndbwriters[1], iosizes[0], usermode[3],"oltp2123.f")
+#filebenchFileGenerator("30", "40", "512k", "800000","oltp.f")
+#t = "sudo ./combined.sh " + "0.5"+ " " + "256m"+ " " + "oltp.f" 
+#os.system(t)
+#exit(0)
 output = []
 currentIterations=0
-for m in memory[:1]:
+for m in memory[2:3]:
   for shadow in nshadows:
     for dbwriter in ndbwriters:
       for iosize in iosizes:
         for cycles in usermode:
-
-          outputFileHandler = open("output/output1.bin",'ab')
-          filebenchFileGenerator(shadow, dbwriter, iosize, cycles,"oltp.f")
-          t = "sudo ./combined.sh " + cpu[cpuindex]+ " " + m+ " " + "oltp.f" + " > " + "results.out"
-          os.system(t)
-          f = open("results.out", 'r')
-          content = f.readlines()
-          if (len(content) >0):
-            print(content[-2])
-          lines = content[-2].split()
-          #NumberOps =lines[-8]
-          #ReadsWrites = lines[-4]
-          latency = lines[-1][:-5]
-          throughputMBPS = lines[-2][:-4]
-          throughputOPPS = lines[-6]
-          row = [cpu[cpuindex],m,shadow, dbwriter,iosize,cycles , throughputOPPS, throughputMBPS, latency]
-          currentIterations+=1
-          print(currentIterations)
-          #output.append(row) 
-          pickle.dump(row,outputFileHandler)
-          outputFileHandler.close() 
+            try:
+              outputFileHandler = open("output/output3.bin",'ab')
+              filebenchFileGenerator(shadow, dbwriter, iosize, cycles,"oltp.f")
+              t = "sudo ./combined.sh " + cpu[cpuindex]+ " " + m+ " " + "oltp.f" + " > " + "results.out"
+              os.system(t)
+              f = open("results.out", 'r')
+              content = f.readlines()
+              if (len(content) >0):
+                print(content[-2])
+              lines = content[-2].split()
+              #NumberOps =lines[-8]
+              #ReadsWrites = lines[-4]
+              latency = lines[-1][:-5]
+              throughputMBPS = lines[-2][:-4]
+              throughputOPPS = lines[-6]
+              row = [cpu[cpuindex],m,shadow, dbwriter,iosize,cycles , throughputOPPS, throughputMBPS, latency]
+              currentIterations+=1
+              print(currentIterations)
+              f.close() 
+              #output.append(row) 
+              pickle.dump(row,outputFileHandler)
+              outputFileHandler.close() 
+            except:
+              pass
  
+   
  
