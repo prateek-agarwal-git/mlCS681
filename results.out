@@ -1,0 +1,36 @@
+filebenchExp
+filebenchExp
+8fb7c3a1f730f06fdb149373495eb7fea966e3d524f14de6b525254f0341f22c
+Filebench Version 1.5-alpha3
+0.000: Allocated 177MB of shared memory
+0.001: Populating and pre-allocating filesets
+0.002: logfile populated: 10 files, avg. dir. width = 1024, avg. dir. depth = 0.3, 0 leafdirs, 100.000MB total size
+0.002: Removing logfile tree (if exists)
+0.004: Pre-allocating directories in logfile tree
+0.004: Pre-allocating files in logfile tree
+0.793: datafiles populated: 10 files, avg. dir. width = 1024, avg. dir. depth = 0.3, 0 leafdirs, 100.000MB total size
+0.793: Removing datafiles tree (if exists)
+0.807: Pre-allocating directories in datafiles tree
+0.807: Pre-allocating files in datafiles tree
+0.947: Waiting for pre-allocation to finish (in case of a parallel pre-allocation)
+0.947: Population and pre-allocation of filesets completed
+0.957: Starting 10 shadow instances
+1.031: Starting 20 dbwr instances
+1.232: Starting 1 lgwr instances
+2.330: Running...
+32.335: Run took 30 seconds...
+32.335: Per-Operation Breakdown
+random-rate          0ops        0ops/s   0.0mb/s    0.000ms/op [0.000ms - 0.000ms]
+shadow-post-dbwr     9044ops      301ops/s   0.0mb/s    0.110ms/op [0.015ms - 26.628ms]
+shadow-post-lg       9044ops      301ops/s   0.0mb/s    0.012ms/op [0.001ms - 13.451ms]
+shadowhog            9044ops      301ops/s   0.0mb/s    0.589ms/op [0.118ms - 33.988ms]
+shadowread           10324ops      344ops/s 150.7mb/s   28.353ms/op [0.003ms - 246.175ms]
+dbwr-aiowait         180ops        6ops/s   0.0mb/s    0.126ms/op [0.008ms - 3.485ms]
+dbwr-block           180ops        6ops/s   0.0mb/s 3289.052ms/op [2575.005ms - 3690.293ms]
+dbwr-hog             200ops        7ops/s   0.0mb/s    0.015ms/op [0.003ms - 0.778ms]
+dbwrite-a            22560ops      752ops/s 333.3mb/s    0.105ms/op [0.000ms - 98.853ms]
+lg-block             2ops        0ops/s   0.0mb/s 10537.432ms/op [9883.543ms - 11191.320ms]
+lg-aiowait           3ops        0ops/s   0.0mb/s    0.002ms/op [0.001ms - 0.002ms]
+lg-write             4ops        0ops/s   0.0mb/s    0.125ms/op [0.056ms - 0.197ms]
+32.336: IO Summary: 33071 ops 1102.244 ops/s 344/752 rd/wr 484.0mb/s 8.923ms/op
+32.336: Shutting down processes
