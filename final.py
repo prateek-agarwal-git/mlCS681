@@ -44,7 +44,7 @@ ndbwriters= ["5", "10","15", "20"]
 iosizes=["2k", "16k","256k", "512k"]
 usermode=["100000","200000", "400000","800000"]  
 totalIterations = 4**6
-cpuindex = 0 
+cpuindex = 3 
 #ndbwriters = 40 did not work
 #filebenchFileGenerator(nshadows[1], ndbwriters[1], iosizes[0], usermode[3],"oltp2123.f")
 #filebenchFileGenerator("30", "40", "512k", "800000","oltp.f")
@@ -59,7 +59,7 @@ for m in memory[2:3]:
       for iosize in iosizes:
         for cycles in usermode:
             try:
-              outputFileHandler = open("output/output3.bin",'ab')
+              outputFileHandler = open("output/output15.bin",'ab')
               filebenchFileGenerator(shadow, dbwriter, iosize, cycles,"oltp.f")
               t = "sudo ./combined.sh " + cpu[cpuindex]+ " " + m+ " " + "oltp.f" + " > " + "results.out"
               os.system(t)

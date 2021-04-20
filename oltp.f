@@ -1,8 +1,8 @@
 set $dir=/tmp
-set $iosize=512k
-set $nshadows=70
+set $iosize=2k
+set $nshadows=10
 set $ndbwriters=5
-set $usermode=100000
+set $usermode=200000
 set $filesize=10m
 set $memperthread=1m
 set $workingset=0
