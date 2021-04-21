@@ -53,13 +53,13 @@ cpuindex = 2
 #exit(0)
 output = []
 currentIterations=0
-for m in memory[:1]:
+for m in memory[2:]:
   for shadow in nshadows:
     for dbwriter in ndbwriters:
       for iosize in iosizes:
         for cycles in usermode:
             try:
-              outputFileHandler = open("output/output9.bin",'ab')
+              outputFileHandler = open("output/output10.bin",'ab')
               filebenchFileGenerator(shadow, dbwriter, iosize, cycles,"oltp.f")
               t = "sudo ./combined.sh " + cpu[cpuindex]+ " " + m+ " " + "oltp.f" + " > " + "results.out"
               os.system(t)
